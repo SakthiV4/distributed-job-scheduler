@@ -112,39 +112,12 @@ We implemented support for job dependency DAGs (Directed Acyclic Graphs). When s
 
 ---
 
-## Screenshots
+## Dockerized & Composed Environment
 
-### 1. Unified Authentication
-![Unified Authentication](docs/screenshots/login.png)
-*A redesigned split-screen gateway featuring security authentication.*
-
-### 2. Multi-Lane Operations Dashboard
-![Multi-Lane Operations Dashboard](docs/screenshots/dashboard.png)
-*Real-time tracking of active pipeline jobs partitioned into horizontal flow columns.*
-
-### 3. Light Theme Redesign
-![Light Theme Redesign](docs/screenshots/dashboard_light.png)
-*Consistent light-mode UI styling matching the operations design parameters.*
-
-### 4. Consistent Global Headers
-![Consistent Global Headers](docs/screenshots/project_header.png)
-*Global page selector badge displaying synchronized workspace projects across all views.*
-
-### 5. Dead Letter Queue Console
-![Dead Letter Queue Console](docs/screenshots/dlq.png)
-*Detailed operator view rendering stack traces and runtime error details in clean monospace.*
-
-### 6. Job Details Inspector
-![Job Details Inspector](docs/screenshots/job_inspector.png)
-*Deep inspector details panel displaying payloads, logs, execution attempts, and dependency status links.*
-
-### 7. Active Worker Fleet Telemetry
-![Active Worker Fleet Telemetry](docs/screenshots/workers.png)
-*Live telemetry node listing rendering hostname details and heartbeat metrics.*
-
-### 8. Interactive Telemetry Visuals
-![Interactive Telemetry Visuals](docs/screenshots/visual_flow.webp)
-*Active CSS heartbeat pulse animation on actively executing pipeline card lanes.*
+The platform is built to be completely self-contained, running out of the box with zero local package installs:
+- **Multi-Stage Builds:** The React frontend is compiled in a Node environment (`node:20-alpine`) and served statically by the FastAPI ASGI server (`python:3.12-slim`), reducing image sizes and deployment footprint.
+- **Service Dependency Gating:** The API and Worker containers defer startup using Docker Compose healthchecks (`service_healthy` condition on `db`) ensuring database readiness before migrations or seeds execute.
+- **Database Migrations & Auto-seeding:** On startup, Alembic migrations run to latest head, and mock organization datasets, admin profiles, and active pipelines are generated automatically.
 
 ---
 
