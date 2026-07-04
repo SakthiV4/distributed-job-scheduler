@@ -121,6 +121,38 @@ The platform is built to be completely self-contained, running out of the box wi
 
 ---
 
+## Screenshots
+
+### 1. Unified Authentication
+![Unified Authentication](docs/screenshots/login.png)
+*A redesigned split-screen gateway featuring security authentication.*
+
+### 2. Multi-Lane Operations Dashboard
+![Multi-Lane Operations Dashboard](docs/screenshots/dashboard.png)
+*Real-time tracking of active pipeline jobs partitioned into horizontal flow columns.*
+
+### 3. Dead Letter Queue Console
+![Dead Letter Queue Console](docs/screenshots/dlq.png)
+*Detailed operator view rendering stack traces and runtime error details in clean monospace.*
+
+### 4. Active Worker Fleet Telemetry
+![Active Worker Fleet Telemetry](docs/screenshots/workers.png)
+*Live telemetry node listing rendering hostname details and heartbeat metrics.*
+
+### 5. Job Details Inspector
+![Job Details Inspector](docs/screenshots/job_inspector.png)
+*Deep inspector details panel displaying payloads, logs, execution attempts, and dependency status links.*
+
+### 6. API Swagger Documentation
+![API Swagger Documentation](docs/screenshots/api_docs.png)
+*Self-documenting interactive API documentation rendering all endpoints.*
+
+### 7. Submit Workload Form
+![Submit Workload Form](docs/screenshots/submit_workload.png)
+*Modal form allowing direct submission of single or batch job payloads.*
+
+---
+
 ## Testing
 
 A comprehensive test suite validates all database rules, safety boundaries, and high-concurrency races.
