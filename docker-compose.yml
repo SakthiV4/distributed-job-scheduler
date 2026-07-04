@@ -1,0 +1,51 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: scheduler
+      POSTGRES_PASSWORD: scheduler
+      POSTGRES_DB: job_scheduler
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U scheduler -d job_scheduler"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql+asyncpg://scheduler:scheduler@db:5432/job_scheduler
+      JWT_SECRET: dev-secret-change-in-prod
+      CORS_ORIGINS: "http://localhost:5173,http://localhost:3000"
+      LOG_LEVEL: INFO
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    command: python -m worker.engine
+    environment:
+      DATABASE_URL: postgresql+asyncpg://scheduler:scheduler@db:5432/job_scheduler
+      JWT_SECRET: dev-secret-change-in-prod
+      LOG_LEVEL: INFO
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  pgdata:

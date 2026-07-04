@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+.venv/
+venv/
+env/
+
+# Environment
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node
+node_modules/
+frontend/dist/
+
+# Docker
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Alembic
+*.pyc
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
